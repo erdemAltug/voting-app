@@ -10,11 +10,10 @@ import Button from "../styled/button";
 import Counter from "../styled/counter";
 import CardImage from "../styled/image";
 
-export default function card(props: any) {
+export default function EmployeeCard(props: any) {
   if (typeof window !== 'undefined') {
     console.log('emloyess', JSON.parse(localStorage.getItem('employees')!))
   }
-
   const router = useRouter();
   const [count, setCount] = useState(0);
   const store = useCounterStore((state: any) => state.count);
