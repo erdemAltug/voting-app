@@ -10,11 +10,9 @@ import EmployeeDetail from "@/app/components/employee-detail";
 
 
 export default async function EmployeeDetails({
-  params, props
+  params,
 }: {
   params: { id: string };
-  props : { props: any}
-
 }) {
   const apolloClient = new ApolloClient({
     uri: process.env.API_BASE_URI,
