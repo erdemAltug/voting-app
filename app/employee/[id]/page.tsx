@@ -1,4 +1,4 @@
-// app/mixmatch/nested-server.tsx
+
 import Image from "next/image";
 import {
   ApolloClient,
@@ -6,8 +6,16 @@ import {
   ApolloProvider,
   gql,
 } from "@apollo/client";
+import EmployeeDetail from "@/app/components/employee-detail";
 
-export default async function EmployeeDetails({ params }: { params: { id: string } }) {
+
+export default async function EmployeeDetails({
+  params, props
+}: {
+  params: { id: string };
+  props : { props: any}
+
+}) {
   const apolloClient = new ApolloClient({
     uri: process.env.API_BASE_URI,
     headers: {
@@ -15,8 +23,8 @@ export default async function EmployeeDetails({ params }: { params: { id: string
     },
     cache: new InMemoryCache(),
   });
-  
-  
+
+
   const getUser = apolloClient.query({
     query : gql`
       query getUsers {
@@ -32,17 +40,18 @@ export default async function EmployeeDetails({ params }: { params: { id: string
       created_at
       department
       adress
+      img
     }
       }
     `,
   });
-  
-  const { data } = await getUser;
 
-  console.log('first')
+  const { data }  = await getUser;
+  const arr = data.users.map((obj: any) => ({ ...obj, vote: 0 }));
+
   return (
-
-    <div>My Post: {data.users[0].name} </div>
-
+    <div>
+      <EmployeeDetail props={arr} />
+    </div>
   );
 }

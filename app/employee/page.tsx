@@ -1,8 +1,7 @@
 // app/mixmatch/nested-server.tsx
-export const dynamic = "force-dynamic";
 import Image from "next/image";
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
-import Card from "../components/card/card";
+import Card from "../components/card";
 import { Suspense } from "react";
 
 const apolloClient = new ApolloClient({
@@ -44,11 +43,9 @@ const getAllUser = apolloClient.query({
   `,
 });
 
-export default async function NestedServer() {
-  console.log("Nested server component rendering");
+export default async function Employee() {
   const { data } = await getAllUser;
   const arr = data.users.map((obj: any) => ({ ...obj, vote: 0 }));
-  console.log(arr)
 
   return (
     <div>
